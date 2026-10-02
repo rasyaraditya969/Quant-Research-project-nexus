@@ -1,576 +1,819 @@
-# QUANT NEXUS
+# NEXUS-QRM
+## Macro, News & Market Quant Research Engine
 
-### Quantitative Research & Systematic Momentum Framework
+> **NEXUS-QRM (Quantitative Regime & Market Intelligence)** is a quantitative research and systematic market analysis framework designed to study market regimes, momentum, volatility, cross-asset relationships, sector rotation, and rule-based portfolio strategies.
 
-> A quantitative research framework for testing systematic momentum signals across financial markets using robust statistical validation, out-of-sample testing, and risk analysis.
-
----
-
-## 1. Overview
-
-**Quant Nexus** is a systematic quantitative research project designed to investigate whether momentum-based signals can generate persistent risk-adjusted returns across financial markets.
-
-The framework is designed around a core principle:
-
-> **A strategy should not be evaluated solely by its historical return. Its robustness, statistical stability, sensitivity to parameters, transaction costs, and out-of-sample behavior must also be examined.**
-
-The research pipeline therefore incorporates:
-
-* Return modelling
-* Momentum signal construction
-* Portfolio/backtest simulation
-* Parameter sensitivity analysis
-* Walk-forward testing
-* Out-of-sample validation
-* Turnover analysis
-* Drawdown and risk analysis
-* Monte Carlo / bootstrap simulation
+The project is built as a research framework rather than a single trading strategy. It combines market data, quantitative signals, macroeconomic regime analysis, portfolio construction, backtesting, statistical validation, and robustness testing into a single research pipeline.
 
 ---
 
-# 2. Research Objective
+## Research Objective
 
-The primary research question is:
+The primary objective of NEXUS-QRM is to investigate whether systematic market signals can provide useful information about:
 
-> **Can a systematic momentum signal generate robust risk-adjusted returns that remain persistent outside the original estimation sample?**
+- Market momentum
+- Volatility regimes
+- Risk-on / risk-off conditions
+- Sector leadership
+- Cross-asset relationships
+- Macro-economic regimes
+- Portfolio allocation
+- Strategy robustness
 
-The research evaluates the hypothesis across different market conditions rather than relying exclusively on in-sample performance.
+The framework is designed to evaluate both **signal behavior** and **strategy performance**, rather than relying only on historical returns.
 
 ---
 
-# 3. Research Architecture
+# 1. Research Architecture
 
 ```text
-                    MARKET DATA
-                         │
-                         ▼
-              ┌─────────────────────┐
-              │    DATA PROCESSING  │
-              │ Cleaning / Returns  │
-              └──────────┬──────────┘
-                         │
-                         ▼
-              ┌─────────────────────┐
-              │   RETURN MODEL      │
-              │                     │
-              │   R_t = P_t/P_t-1  │
-              │         - 1         │
-              └──────────┬──────────┘
-                         │
-                         ▼
-              ┌─────────────────────┐
-              │ MOMENTUM SIGNAL     │
-              │                     │
-              │ Lookback / Ranking  │
-              └──────────┬──────────┘
-                         │
-                         ▼
-              ┌─────────────────────┐
-              │ PORTFOLIO / SIGNAL  │
-              │ CONSTRUCTION        │
-              └──────────┬──────────┘
-                         │
-                         ▼
-              ┌─────────────────────┐
-              │     BACKTEST        │
-              └──────────┬──────────┘
-                         │
-             ┌───────────┼───────────┐
-             ▼           ▼           ▼
-       WALK-FORWARD     OOS      PARAMETER
-         TESTING      TESTING    OPTIMIZATION
-             │           │           │
-             └───────────┼───────────┘
-                         ▼
-              ┌─────────────────────┐
-              │ RISK & ROBUSTNESS   │
-              │                     │
-              │ Drawdown            │
-              │ Turnover            │
-              │ Monte Carlo         │
-              │ Bootstrap           │
-              └──────────┬──────────┘
-                         │
-                         ▼
-                  RESEARCH RESULT
-```
+                         MARKET DATA
+                              │
+                              ▼
+                  ┌─────────────────────┐
+                  │   DATA COLLECTION   │
+                  │   Yahoo Finance     │
+                  └──────────┬──────────┘
+                             │
+                             ▼
+                  ┌─────────────────────┐
+                  │ FEATURE ENGINEERING │
+                  │                     │
+                  │ Momentum             │
+                  │ Volatility           │
+                  │ VIX                  │
+                  │ Breadth              │
+                  │ Relative Strength    │
+                  │ Trend                │
+                  └──────────┬──────────┘
+                             │
+              ┌──────────────┼──────────────┐
+              ▼              ▼              ▼
+        MARKET REGIME   SECTOR ROTATION  CROSS-ASSET
+              │              │              │
+              └──────────────┼──────────────┘
+                             ▼
+                  ┌─────────────────────┐
+                  │   SIGNAL ENGINE      │
+                  │                     │
+                  │ Momentum             │
+                  │ Trend                │
+                  │ Relative Strength    │
+                  │ Low Volatility       │
+                  │ Macro Overlay        │
+                  └──────────┬──────────┘
+                             │
+                             ▼
+                  ┌─────────────────────┐
+                  │ PORTFOLIO / MODEL   │
+                  │ CONSTRUCTION        │
+                  └──────────┬──────────┘
+                             │
+                             ▼
+                       BACKTEST ENGINE
+                             │
+              ┌──────────────┼──────────────┐
+              ▼              ▼              ▼
+        Benchmarking    Transaction      Risk Metrics
+                         Costs
+              │              │              │
+              └──────────────┼──────────────┘
+                             ▼
+                  ┌─────────────────────┐
+                  │ ROBUSTNESS TESTING  │
+                  │                     │
+                  │ Parameter Search     │
+                  │ Walk-Forward         │
+                  │ Out-of-Sample       │
+                  │ Bootstrap            │
+                  │ Monte Carlo          │
+                  └──────────┬──────────┘
+                             │
+                             ▼
+                     RESEARCH REPORT
 
----
+2. Research Universe
 
-# 4. Methodology
+The framework covers multiple financial-market categories.
 
-## 4.1 Return Model
+Equity Indices
+S&P 500
+Nasdaq-100
+Dow Jones Industrial Average
+Russell 2000
+Volatility
+VIX
+Macro / Rates
+US 10-Year Treasury yield proxy
+US 2-Year Treasury yield proxy
+US Dollar Index
+Commodities
+Gold
+Silver
+Crude Oil
+Copper
+Equity Sectors
+Technology
+Financials
+Energy
+Health Care
+Industrials
+Consumer Discretionary
+Consumer Staples
+Materials
+Communication Services
+Utilities
+Real Estate
 
-The basic periodic return is defined as:
+The research universe is configurable and can be expanded to additional instruments.
 
-$$
-R_t = \frac{P_t}{P_{t-1}} - 1
-$$
+3. Data Pipeline
+
+Historical market data is collected using yfinance.
+
+The default research period begins in:
+
+2018-01-01
+
+The data pipeline performs:
+
+Historical data retrieval
+Adjusted price extraction
+Multi-asset alignment
+Missing-value handling
+Return calculation
+Feature construction
+
+Periodic return:
+
+$$ R_t = \frac{P_t}{P_{t-1}} - 1 $$
 
 where:
 
-* \(P_t\) = asset price at time \(t\)
-* \(P_{t-1}\) = previous-period price
-* \(R_t\) = periodic return
+\(P_t\) = price at time \(t\)
+\(P_{t-1}\) = previous-period price
+\(R_t\) = periodic return
+4. Quantitative Feature Engineering
 
-The return series forms the foundation for subsequent signal and portfolio calculations.
+NEXUS-QRM transforms raw market prices into quantitative features used throughout the research pipeline.
 
----
+4.1 Momentum
 
-## 4.2 Momentum Model
+The framework calculates price momentum across multiple lookback horizons.
 
-The framework evaluates price momentum over a specified lookback period.
+The general momentum formulation is:
 
-A generic momentum measure is:
-
-$$
-M_t^{(n)} = \frac{P_t}{P_{t-n}} - 1
-$$
+$$ M_t^{(n)} = \frac{P_t}{P_{t-n}}-1 $$
 
 where:
 
-* \(M_t^{(n)}\) = momentum over \(n\) periods
-* \(P_t\) = current price
-* \(P_{t-n}\) = price \(n\) periods earlier
+\(M_t^{(n)}\) = momentum over \(n\) periods
+\(P_t\) = current price
+\(P_{t-n}\) = price \(n\) periods earlier
 
-Multiple lookback horizons can be evaluated to examine parameter sensitivity.
+The research includes multiple horizons such as:
 
----
+5-day
+10-day
+20-day
+30-day
+60-day
+4.2 Realized Volatility
 
-# 5. Backtesting Framework
+Annualized realized volatility is calculated from daily returns:
 
-The backtesting engine evaluates historical strategy performance while attempting to avoid look-ahead bias.
+$$ \sigma_{annual} = \sigma_{daily}\sqrt{252} $$
 
-The framework considers:
+Rolling volatility is used to evaluate changes in market risk and as part of the regime framework.
 
-* Entry/exit logic
-* Signal generation
-* Position exposure
-* Portfolio returns
-* Transaction costs
-* Drawdowns
-* Capital growth
+4.3 VIX Analysis
 
-The primary objective is not maximum historical return, but **robustness across different samples and assumptions**.
+VIX is incorporated as a market volatility and risk-regime variable.
 
----
+The framework also calculates a rolling VIX z-score:
 
-# 6. Walk-Forward Analysis
+$$ Z_t = \frac{VIX_t-\mu_t}{\sigma_t} $$
 
-Walk-forward testing is used to evaluate whether model parameters remain useful when applied to future observations.
+This provides a normalized measure of current volatility relative to its recent history.
+
+4.4 Sector Breadth
+
+Sector breadth measures the proportion of sector ETFs trading above their 50-day moving average.
+
+$$ Breadth_t = \frac{\#\{Sector_i > MA50_i\}}{N} $$
+
+This provides a market-participation measure that can be incorporated into the regime analysis.
+
+5. Macro / Market Regime Model
+
+NEXUS-QRM constructs a transparent market-regime score using:
+
+S&P 500 momentum
+US Dollar momentum
+S&P 500 volatility
+Sector breadth
+
+The conceptual growth score is:
+
+$$ GrowthScore = Z(Momentum) - Z(DXY) - Z(Volatility) + Z(Breadth) $$
+
+The framework uses this score to study market conditions such as:
+
+Expansion / Risk-On
+        │
+        ▼
+    Transition
+        │
+        ▼
+Contraction / Risk-Off
+
+The regime framework is a quantitative research heuristic and is not intended to represent an official economic recession classification.
+
+6. Sector Rotation Model
+
+NEXUS-QRM includes a systematic sector-rotation model covering 11 US equity sectors.
+
+The model evaluates sectors using four quantitative factors:
+
+Momentum              35%
+Relative Strength     25%
+Trend                 20%
+Low Volatility        20%
+
+The composite score is:
+
+$$ Score = 0.35(Momentum) + 0.25(RelativeStrength) + 0.20(Trend) + 0.20(LowVolatility) $$
+
+The framework then applies a macro-regime overlay to the sector-selection process.
+
+7. Cross-Sectional Normalization
+
+Factor values are normalized cross-sectionally using z-scores.
+
+$$ Z_{i,t} = \frac{X_{i,t}-\mu_t} {\sigma_t} $$
+
+This allows factors with different numerical scales to be combined into a unified scoring framework.
+
+8. Portfolio Construction
+
+The sector rotation model ranks the available sectors and selects the highest-ranked securities.
+
+Default configuration:
+
+Selected sectors: 3
+Rebalancing frequency: Monthly
+
+The selected sectors are weighted using inverse volatility.
+
+$$ w_i = \frac{1/\sigma_i} {\sum_j 1/\sigma_j} $$
+
+This approach assigns relatively lower portfolio weight to higher-volatility sectors and relatively higher weight to lower-volatility sectors.
+
+9. Backtesting Framework
+
+The portfolio backtest evaluates historical strategy behavior using target portfolio weights.
+
+The implementation separates signal generation from portfolio returns.
 
 Conceptually:
 
-```text
-TRAIN
-████████████████
+Signal at t
+     │
+     ▼
+Target Portfolio Weight
+     │
+     ▼
+Shift Forward
+     │
+     ▼
+Portfolio Return
 
-TEST
-                █████
+Portfolio weights are shifted by one trading day before being applied to subsequent asset returns in order to reduce look-ahead bias.
 
-        TRAIN
-        ████████████████
+10. Transaction Cost Modeling
 
-        TEST
-                    █████
+Transaction costs are incorporated into the portfolio backtest.
 
-                TRAIN
-                ████████████████
+Portfolio turnover is estimated from changes in portfolio weights:
 
-                TEST
-                            █████
-```
+$$ Turnover_t = \sum_i |w_{i,t}-w_{i,t-1}| $$
 
-The process repeatedly:
+Transaction cost:
 
-1. Trains/calibrates the model on historical observations.
-2. Applies the selected parameters to an unseen period.
-3. Advances the testing window.
-4. Repeats the process.
+$$ Cost_t = Turnover_t \times \frac{TC_{bps}}{10,000} $$
 
-This provides a more realistic estimate of how a systematic strategy may behave under changing market conditions.
+The sector-rotation implementation uses a configurable transaction-cost assumption, with the current model using:
 
----
+Transaction Cost = 5 bps
+11. Benchmarking
 
-# 7. Out-of-Sample Testing
+The sector rotation model can be evaluated against passive alternatives including:
 
-The dataset is separated into:
+Equal-Weight Sector Portfolio
 
-```text
-Historical Data
-│
-├── In-Sample
-│
-└── Out-of-Sample
-```
+An equal-weight allocation across the sector universe.
 
-The model is developed using the in-sample period.
+SPY Buy & Hold
 
-The out-of-sample period remains unseen during model development and is used to evaluate whether the observed relationships persist beyond the original research sample.
+A passive S&P 500 equity benchmark.
 
----
+The objective is to compare systematic sector allocation with simpler portfolio construction approaches.
 
-# 8. Parameter Sensitivity
+12. Performance Metrics
 
-Parameter optimization is performed to investigate how sensitive strategy performance is to model assumptions.
+The framework evaluates multiple dimensions of strategy performance.
 
-Example:
+Total Return
+$$ R_{total} = \prod_{t=1}^{T}(1+R_t)-1 $$
+CAGR
+$$ CAGR = \left(\frac{V_T}{V_0}\right)^{1/Y}-1 $$
+Annualized Volatility
+$$ \sigma_{annual} = \sigma_{daily}\sqrt{252} $$
+Sharpe Ratio
+$$ Sharpe = \frac{E[R_p-R_f]} {\sigma(R_p-R_f)} \sqrt{252} $$
+Sortino Ratio
 
-```text
-Lookback Period
-       │
-       ├── 5
-       ├── 10
-       ├── 20
-       ├── 40
-       ├── 60
-       └── 120
-```
+The Sortino ratio evaluates returns relative to downside deviation.
 
-Instead of selecting a single parameter based solely on maximum historical performance, the framework examines whether performance remains relatively stable across a range of parameter values.
+Maximum Drawdown
+$$ DD_t = \frac{V_t}{\max(V_1,\ldots,V_t)}-1 $$
 
-A broad stable region is generally more informative for robustness analysis than an isolated optimal point.
+Maximum drawdown is the minimum observed drawdown.
 
----
+Calmar Ratio
+$$ Calmar = \frac{CAGR}{|MaximumDrawdown|} $$
+Win Rate
+$$ WinRate = \frac{\#(R_t>0)}{N} $$
+Profit Factor
+$$ ProfitFactor = \frac{\sum PositiveReturns} {|\sum NegativeReturns|} $$
+13. Transparent SPX Regime Strategy
 
-# 9. Turnover Analysis
+The project also contains a transparent SPX regime strategy designed to make the signal construction auditable.
 
-Portfolio turnover is evaluated to understand how frequently the strategy changes exposure.
+The strategy combines:
 
-High turnover can materially affect realized performance because of:
+20-day SPX momentum
+Volatility filter
+Macro / growth regime score
+Long Condition
+SPX 20D Momentum > 0
+AND
+Growth Score > 0
+AND
+SPX Volatility < Rolling Median Volatility
+Short Condition
+SPX 20D Momentum < 0
+AND
+Growth Score < 0
 
-* Transaction costs
-* Bid-ask spreads
-* Slippage
-* Market impact
+The resulting position is shifted forward before calculating strategy returns.
 
-Therefore, gross backtest performance should not be interpreted independently from implementation costs.
+14. Parameter Optimization
 
----
+NEXUS-QRM includes parameter exploration using a development/training sample.
 
-# 10. Risk Analysis
+Momentum lookbacks:
 
-The framework evaluates several risk characteristics.
+5
+10
+20
+30
+60
 
-### Maximum Drawdown
+Volatility lookbacks:
 
-$$
-DD_t = \frac{V_t}{\max(V_1,\ldots,V_t)} - 1
-$$
+10
+20
+30
+60
 
-Maximum drawdown is:
+The optimization evaluates:
 
-$$
-MDD = \min(DD_t)
-$$
+Sharpe Ratio
+CAGR
+Maximum Drawdown
 
-where \(V_t\) represents portfolio value.
+The final holdout period is kept separate from the initial parameter-search process.
 
----
+15. Walk-Forward Validation
 
-### Sharpe Ratio
+Walk-forward analysis is used to evaluate whether parameter selections remain useful on unseen observations.
 
-$$
-Sharpe =
-\frac{E[R_p-R_f]}
-{\sigma(R_p-R_f)}
-$$
+The process follows:
 
-where:
+Historical Training Window
+          │
+          ▼
+Parameter Selection
+          │
+          ▼
+Unseen Test Window
+          │
+          ▼
+Record Out-of-Sample Result
+          │
+          ▼
+Roll Forward
+          │
+          ▼
+Repeat
 
-* \(R_p\) = portfolio return
-* \(R_f\) = risk-free rate
-* \(\sigma\) = standard deviation of excess returns
+Default configuration:
 
----
+Training Window = 756 trading days
+Testing Window  = 126 trading days
 
-### Annualized Volatility
+For each walk-forward period, parameters are selected using the preceding training window and then evaluated on the following unseen test window.
 
-$$
-\sigma_{annual}
-=
-\sigma_{periodic}\sqrt{N}
-$$
+16. Out-of-Sample Holdout
 
-where \(N\) represents the number of periods per year.
-
----
-
-# 11. Monte Carlo Simulation
-
-Monte Carlo analysis is used to investigate the distribution of possible strategy outcomes under randomized return/trade sequences.
+The framework also reserves a final holdout period for independent evaluation.
 
 Conceptually:
 
-```text
-Historical Strategy
-        │
-        ▼
-Randomized Resampling
-        │
-        ▼
-┌───────┼───────┐
-▼       ▼       ▼
-Path 1   Path 2   Path 3
-│        │        │
-▼        ▼        ▼
-...      ...      ...
-│        │        │
-└────────┼────────┘
-         ▼
-Outcome Distribution
-```
+Historical Dataset
+│
+├─────────────────────────┐
+│                         │
+│     Development         │
+│                         │
+├─────────────────────────┤
+│                         │
+│     Final Holdout       │
+│                         │
+└─────────────────────────┘
 
-The analysis can be used to examine:
+The holdout is intended to provide an additional check against evaluating the model exclusively on observations used during research and parameter development.
 
-* Return distribution
-* Drawdown distribution
-* Risk of severe loss
-* Path dependency
-* Strategy variability
+17. Bootstrap / Monte Carlo Analysis
 
----
+NEXUS-QRM includes bootstrap-based simulation using historical strategy returns.
 
-# 12. Bootstrap Analysis
+The process:
 
-Bootstrap resampling is used to estimate the uncertainty surrounding observed strategy statistics.
+Collect historical strategy returns.
+Resample returns with replacement.
+Generate simulated equity paths.
+Calculate terminal-equity distributions.
+Analyze selected percentiles.
 
-Rather than treating a single historical sequence as definitive, the observed return/trade sample is repeatedly resampled to construct empirical distributions.
+Default:
 
-This allows the research to investigate whether observed performance characteristics are stable under alternative samples.
+Simulations = 2,000
 
----
+The framework reports:
 
-# 13. Performance Metrics
+5th Percentile
+50th Percentile
+95th Percentile
 
-The research framework evaluates multiple dimensions of performance.
+of simulated terminal equity.
 
-| Category       | Metrics                      |
-| -------------- | ---------------------------- |
-| Return         | CAGR, Total Return           |
-| Risk           | Volatility, Maximum Drawdown |
-| Risk-Adjusted  | Sharpe Ratio                 |
-| Trading        | Win Rate, Profit Factor      |
-| Implementation | Turnover, Transaction Costs  |
-| Robustness     | OOS Performance              |
-| Stability      | Parameter Sensitivity        |
-| Uncertainty    | Monte Carlo / Bootstrap      |
+The simulation is intended as a robustness analysis and not as a prediction of future performance.
 
----
+18. News & Sentiment Research
 
-# 14. Research Results
+The project contains an optional financial-news research module.
 
-> **Note:** Replace the values below with the actual outputs generated by the model.
+The research pipeline is:
 
-| Metric           | In-Sample | Out-of-Sample |
-| ---------------- | --------: | ------------: |
-| CAGR             |       XX% |           XX% |
-| Sharpe Ratio     |      X.XX |          X.XX |
-| Volatility       |       XX% |           XX% |
-| Maximum Drawdown |      -XX% |          -XX% |
-| Win Rate         |       XX% |           XX% |
-| Turnover         |        XX |            XX |
+Google News RSS
+      │
+      ▼
+Headline Collection
+      │
+      ▼
+Text Processing
+      │
+      ▼
+VADER Sentiment
+      │
+      ▼
+Sentiment Score
+      │
+      ▼
+Positive / Neutral / Negative
 
-The objective of the results section is to compare model behavior across samples rather than presenting a single headline return.
+The research module can monitor topics including:
 
----
+S&P 500
+Nasdaq
+Federal Reserve
+Inflation
+CPI
+PCE
+NFP
+Treasury yields
+Gold
+Oil
+US Dollar
+Technology
+Semiconductor markets
 
-# 15. Key Research Questions
+The current implementation is a research prototype.
 
-The framework is designed to answer:
+For institutional deployment, the framework would require a more robust and timestamp-accurate financial-news data source.
 
-### 1. Does momentum generate a persistent signal?
+19. Event Study
 
-Evaluate whether the signal remains effective across different periods.
+The project also contains an event-study component for analyzing market behavior around specified dates.
 
-### 2. Is the strategy overfit?
+Conceptually:
 
-Evaluate parameter sensitivity and out-of-sample performance.
+Event Date
+    │
+    ├── -5 Days
+    ├── -4 Days
+    ├── -3 Days
+    ├── -2 Days
+    ├── -1 Day
+    │
+    ├── EVENT
+    │
+    ├── +1 Day
+    ├── +2 Days
+    ├── +3 Days
+    ├── +4 Days
+    └── +5 Days
 
-### 3. Does performance survive transaction costs?
+The objective is to study average market returns around an event window.
 
-Evaluate turnover, estimated costs, and implementation assumptions.
+For higher-frequency institutional research, exact event timestamps and intraday data would be required.
 
-### 4. Is the strategy dependent on a specific market regime?
+20. Research Outputs
 
-Compare performance across different market environments.
+NEXUS-QRM produces several categories of quantitative outputs.
 
-### 5. How stable are the risk characteristics?
-
-Evaluate drawdowns, volatility, Monte Carlo paths, and bootstrap distributions.
-
----
-
-# 16. Technology Stack
-
-```text
+Market Diagnostics
+Momentum
+Realized volatility
+VIX
+Regime score
+Sector breadth
+Sector Analytics
+Sector ranking
+Composite factor scores
+Relative strength
+Volatility
+Portfolio weights
+Portfolio Analytics
+Equity curve
+CAGR
+Sharpe Ratio
+Sortino Ratio
+Maximum Drawdown
+Calmar Ratio
+Win Rate
+Profit Factor
+Turnover
+Robustness Analysis
+Parameter sensitivity
+Walk-forward validation
+Out-of-sample testing
+Final holdout
+Bootstrap simulation
+Monte Carlo analysis
+News Research
+Headline sentiment
+Sentiment distribution
+Event-window analysis
+21. Technology Stack
 Python
+│
 ├── NumPy
 ├── Pandas
 ├── SciPy
-├── Statsmodels
 ├── Scikit-learn
+├── Statsmodels
 ├── Matplotlib
-└── Jupyter / Google Colab
-```
+├── yfinance
+├── Feedparser
+├── VADER Sentiment
+└── pandas-datareader
 
 Research environment:
 
-* Python
-* Google Colab
-* Jupyter Notebook
-* Git/GitHub
-
----
-
-# 17. Repository Structure
-
-```text
-QUANT-NEXUS/
+Google Colab
+Jupyter Notebook
+Python 3.x
+Git / GitHub
+22. Repository Structure
+Quant-Research-project-nexus/
 │
 ├── README.md
 │
+├── Quant research/
+│   └── NEXUS_QR_Quant_Research_Colab.ipynb
+│
+├── sector_rotation_quant.py
+│
+└── .gitignore
+
+Recommended future research structure:
+
+quant-nexus/
+│
+├── README.md
+├── requirements.txt
+│
 ├── notebooks/
-│   ├── 01_data_processing.ipynb
-│   ├── 02_return_model.ipynb
-│   ├── 03_momentum_model.ipynb
-│   ├── 04_backtest.ipynb
-│   ├── 05_walk_forward.ipynb
-│   ├── 06_out_of_sample.ipynb
-│   ├── 07_parameter_optimization.ipynb
-│   ├── 08_turnover_analysis.ipynb
-│   └── 09_monte_carlo.ipynb
+│   └── NEXUS_QR_Quant_Research_Colab.ipynb
 │
 ├── src/
 │   ├── data.py
+│   ├── features.py
 │   ├── signals.py
+│   ├── portfolio.py
 │   ├── backtest.py
-│   ├── risk.py
-│   └── validation.py
+│   └── risk.py
 │
 ├── results/
 │   ├── equity_curve.png
 │   ├── drawdown.png
-│   ├── parameter_surface.png
-│   ├── oos_performance.png
+│   ├── parameter_sensitivity.png
+│   ├── walk_forward.png
 │   └── monte_carlo.png
 │
-├── data/
-│
-└── requirements.txt
-```
+└── data/
+23. Reproducibility
 
----
+Install the required Python packages:
 
-# 18. Reproducibility
+pip install numpy pandas scipy scikit-learn statsmodels matplotlib yfinance feedparser vaderSentiment pandas-datareader
 
-The project is structured to make the research process reproducible.
+The main research notebook can be executed in:
 
-To run the project:
+Google Colab
+Jupyter Notebook
 
-```bash
-git clone https://github.com/YOUR_USERNAME/quant-nexus.git
+The standalone sector-rotation model can be executed with:
 
-cd quant-nexus
+python sector_rotation_quant.py
 
-pip install -r requirements.txt
-```
+The sector-rotation script generates research outputs including:
 
-Then open the notebooks or run the research pipeline.
+sector_target_weights.csv
+sector_scores.csv
+sector_rotation_backtest.csv
+24. Research Workflow
 
-For Google Colab:
+The complete research workflow is:
 
-```text
-Open Notebook
-      ↓
-Install Dependencies
-      ↓
-Load Dataset
-      ↓
-Run Research Pipeline
-      ↓
-Generate Results
-```
+HYPOTHESIS
+    │
+    ▼
+MARKET DATA
+    │
+    ▼
+DATA PROCESSING
+    │
+    ▼
+FEATURE ENGINEERING
+    │
+    ▼
+SIGNAL CONSTRUCTION
+    │
+    ▼
+REGIME ANALYSIS
+    │
+    ▼
+PORTFOLIO CONSTRUCTION
+    │
+    ▼
+BACKTEST
+    │
+    ▼
+BENCHMARK
+    │
+    ▼
+TRANSACTION COSTS
+    │
+    ▼
+PARAMETER ANALYSIS
+    │
+    ▼
+WALK-FORWARD
+    │
+    ▼
+OUT-OF-SAMPLE
+    │
+    ▼
+BOOTSTRAP / MONTE CARLO
+    │
+    ▼
+RESEARCH CONCLUSION
+25. Research Philosophy
 
----
+NEXUS-QRM follows a research-first quantitative framework.
 
-# 19. Research Limitations
+The purpose is not simply to find a parameter combination that performs well historically.
 
-This project is a research framework and should not be interpreted as a guarantee of future investment performance.
+Instead, the framework attempts to investigate:
 
-Important limitations include:
+Whether a signal persists across different periods
+Whether performance survives unseen data
+How sensitive the model is to parameter changes
+How transaction costs affect results
+How portfolio risk behaves
+Whether performance is concentrated in a particular market regime
+Whether simulated return paths materially change the observed risk profile
 
-* Historical data may not represent future market conditions.
-* Backtests may be affected by data quality.
-* Transaction costs and slippage may differ from assumptions.
-* Model parameters may still contain estimation risk.
-* Market regimes can change.
-* Historical correlations may not persist.
-* Backtest results can be sensitive to implementation assumptions.
+The research therefore emphasizes:
 
-Further research should investigate additional datasets, alternative signal specifications, regime analysis, and more realistic execution assumptions.
+Signal
++
+Validation
++
+Robustness
++
+Risk
 
----
+rather than historical return alone.
 
-# 20. Future Research
+26. Research Limitations
+
+The current research framework has several limitations.
+
+Historical Data
+
+Historical relationships may not persist under future market conditions.
+
+Data Quality
+
+Market-data providers may contain missing observations, revisions, adjustments, or other data-quality issues.
+
+Transaction Costs
+
+Real-world execution costs may differ from the assumptions used in the backtest.
+
+Slippage
+
+The current framework does not fully model instrument-specific market impact, liquidity, and execution latency.
+
+Regime Classification
+
+The macro regime score is a transparent quantitative heuristic and should not be interpreted as an official economic recession classifier.
+
+News Data
+
+The current news module uses RSS-based headlines and basic sentiment analysis. It is not equivalent to institutional-grade financial-news infrastructure.
+
+Parameter Risk
+
+Parameter optimization can introduce overfitting if model development and evaluation periods are not properly separated.
+
+Backtest Risk
+
+Backtested results should not be interpreted as evidence of guaranteed future performance.
+
+27. Future Research
 
 Potential extensions include:
 
-* Multi-asset momentum
-* Cross-sectional momentum
-* Volatility targeting
-* Risk parity
-* Dynamic position sizing
-* Regime detection
-* Factor decomposition
-* Transaction-cost modeling
-* Portfolio optimization
-* Machine-learning signal research
-* Alternative data
-* Intraday research
-* Live paper trading
-* Production-grade backtesting
+Multi-asset portfolio optimization
+Volatility targeting
+Risk parity
+Dynamic position sizing
+Portfolio-level VaR / CVaR
+Factor attribution
+Regime-conditioned alpha
+Purged time-series validation
+Embargoed validation
+Improved transaction-cost modeling
+Instrument-specific slippage
+Futures contract handling
+Contract-roll methodology
+Macro-surprise analysis
+CPI / PCE / NFP event studies
+FOMC event studies
+Intraday event studies
+Advanced NLP for financial news
+Entity extraction
+News embeddings
+Live signal monitoring
+Production-grade backtesting
+28. Author
 
----
+Rasya Raditya Anggara
 
-# 21. Research Philosophy
+Undergraduate Researcher
+Quantitative Finance · Systematic Research · Financial Markets
 
-Quant Nexus follows a research-first approach:
+Research Interests
+Quantitative Research
+Systematic Trading
+Financial Data Science
+Statistical Modeling
+Portfolio Analytics
+Risk Modeling
+Market Regime Analysis
+Macro & Cross-Asset Research
+29. Disclaimer
 
-```text
-Hypothesis
-    ↓
-Data
-    ↓
-Model
-    ↓
-Backtest
-    ↓
-Validation
-    ↓
-Robustness
-    ↓
-Risk
-    ↓
-Conclusion
-```
+This repository is intended for quantitative research and educational purposes only.
 
-The goal is not to construct a model that performs perfectly on historical data.
+The research results produced by this framework are based on historical data and model assumptions. Historical backtests do not guarantee future performance.
 
-The goal is to determine whether a measurable statistical relationship remains **robust under independent testing, parameter variation, and alternative assumptions**.
+This project does not constitute investment advice or a recommendation to buy or sell any financial instrument.
 
----
-
-# 22. Author
-
-**Rasya Raditya Anggara**
-
-Interested in:
-
-* Quantitative Research
-* Systematic Trading
-* Financial Data Science
-* Statistical Modeling
-* Portfolio & Risk Analytics
-
----
+Any real-world deployment should involve additional validation, data-quality controls, execution modeling, transaction-cost analysis, risk limits, and independent out-of-sample testing.
