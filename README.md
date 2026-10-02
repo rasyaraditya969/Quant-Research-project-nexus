@@ -565,9 +565,6 @@ The goal is to determine whether a measurable statistical relationship remains *
 
 **Rasya Raditya Anggara**
 
-Undergraduate Researcher
-Quantitative Finance · Systematic Trading · Financial Markets
-
 Interested in:
 
 * Quantitative Research
