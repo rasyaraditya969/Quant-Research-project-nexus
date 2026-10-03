@@ -2,7 +2,7 @@
 
 # 🧭 NEXUS-QRM
 
-### Quantitative Regime & Market Intelligence — a Colab-ready research engine
+### Quantitative Regime & Market Intelligence and quant research by rasya
 
 *Macro regimes • Sector rotation • Cross-asset signals • Walk-forward testing • News sentiment*
 
