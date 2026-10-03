@@ -137,7 +137,7 @@ VIX **14.87**, sector breadth **36.36%**, regime **Contraction / Risk-Off**.
 ### Option 2 — Local
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/nexus-qrm.git
+git clone https://github.com/rasyaraditya969/nexus-qrm.git
 cd nexus-qrm
 
 python -m venv .venv
